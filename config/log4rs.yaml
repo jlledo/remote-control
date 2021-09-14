@@ -1,0 +1,20 @@
+refresh_rate: 30 seconds
+appenders:
+  stdout:
+    kind: console
+  logfile:
+    kind: rolling_file
+    path: "log/logfile.log"
+    policy:
+      trigger:
+        kind: size
+        limit: 50kb
+      roller:
+        kind: fixed_window
+        count: 100
+        pattern: "log/logfile{}.log"
+root:
+  level: debug
+  appenders:
+    - stdout
+    - logfile
