@@ -24,3 +24,4 @@ log = "0.4.14"
 log4rs = "1.0.0"
 nom = "7.0.0"
 serde = { version = "1.0.130", features = ["derive"] }
+system_shutdown = "3.0.0"

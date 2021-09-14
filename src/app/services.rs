@@ -1,22 +1,17 @@
-use std::process::Command;
-
 use actix_web::web::Payload;
 use actix_web::{get, HttpRequest, HttpResponse, Responder};
 use actix_web_actors::ws;
 use log::info;
+use system_shutdown;
 
 use crate::app::socket::ControlSocket;
 
-// TODO: make cross-platform
-#[cfg(windows)]
 #[get("/shutdown")]
 pub async fn shutdown() -> impl Responder {
-    Command::new("cmd")
-        .args(&["/C", "shutdown -s"])
-        .output()
-        .expect("failed to shutdown");
-
-    HttpResponse::Ok().body("Bye!")
+    match system_shutdown::shutdown() {
+        Ok(_) => HttpResponse::Ok().body("Shutting down, bye!"),
+        Err(e) => HttpResponse::InternalServerError().body(format!("Failed to shut down: {}", e)),
+    }
 }
 
 #[get("/control")]
