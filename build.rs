@@ -1,8 +1,9 @@
-extern crate winres;
-
-fn main() {
-    if cfg!(target_os = "windows") {
-        let res = winres::WindowsResource::new();
-        res.compile().unwrap();
-    }
+#[cfg(windows)]
+fn main() -> std::io::Result<()> {
+    let mut res = winres::WindowsResource::new();
+    res.set("FileDescription", "Remote Control");
+    res.compile()
 }
+
+#[cfg(not(windows))]
+fn main() {}

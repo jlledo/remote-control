@@ -1,6 +1,5 @@
 use std::path::PathBuf;
 
-use directories::BaseDirs;
 use log::LevelFilter;
 use log4rs::append::console::ConsoleAppender;
 use log4rs::append::rolling_file::policy::compound::roll::fixed_window::FixedWindowRoller;
@@ -27,7 +26,10 @@ fn default_config() -> Config {
     const ROLLING_FILE_COUNT: u32 = 100;
     let roller = FixedWindowRoller::builder()
         .build(
-            default_log_dir().join("logfile{}.log").to_str().unwrap(),
+            default_log_dir()
+                .join("remote-control{}.log")
+                .to_str()
+                .unwrap(),
             ROLLING_FILE_COUNT,
         )
         .unwrap();
@@ -50,15 +52,26 @@ fn default_config() -> Config {
         .unwrap()
 }
 
-#[cfg(windows)]
+#[cfg(target_os = "windows")]
 fn default_log_dir() -> PathBuf {
-    BaseDirs::new()
+    directories::BaseDirs::new()
         .unwrap()
         .data_local_dir()
         .join("Remote Control/log")
 }
 
-#[cfg(windows)]
+#[cfg(target_os = "macos")]
+fn default_log_dir() -> PathBuf {
+    home::home_dir()
+        .unwrap()
+        .join("Library/Logs/Remote Control")
+}
+
+#[cfg(target_os = "linux")]
+fn default_log_dir() -> PathBuf {
+    std::path::Path::new("/var/log/remote-control").to_path_buf()
+}
+
 fn default_log_path() -> PathBuf {
-    default_log_dir().join("logfile.log")
+    default_log_dir().join("remote-control.log")
 }
