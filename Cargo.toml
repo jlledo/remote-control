@@ -4,12 +4,6 @@ edition = "2018"
 name = "remote-control"
 version = "0.1.0"
 
-[package.metadata.winres]
-FileDescription = "Remote Control"
-
-[build-dependencies]
-winres = "0.1.11"
-
 [dependencies]
 actix = "0.10.0"
 actix-web = "3.3.2"
@@ -27,6 +21,9 @@ system_shutdown = "3.0.0"
 
 [target.'cfg(windows)'.dependencies]
 directories = "3.0.2"
+
+[target.'cfg(windows)'.build-dependencies]
+winres = "0.1.11"
 
 [target.'cfg(target_os = "macos")'.dependencies]
 home = "0.5.3"
