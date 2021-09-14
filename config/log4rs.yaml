@@ -4,7 +4,7 @@ appenders:
     kind: console
   logfile:
     kind: rolling_file
-    path: "log/logfile.log"
+    path: "log/remote-control.log"
     policy:
       trigger:
         kind: size
@@ -12,7 +12,7 @@ appenders:
       roller:
         kind: fixed_window
         count: 100
-        pattern: "log/logfile{}.log"
+        pattern: "log/remote-control{}.log"
 root:
   level: debug
   appenders:

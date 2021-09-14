@@ -27,7 +27,10 @@ fn default_config() -> Config {
     const ROLLING_FILE_COUNT: u32 = 100;
     let roller = FixedWindowRoller::builder()
         .build(
-            default_log_dir().join("logfile{}.log").to_str().unwrap(),
+            default_log_dir()
+                .join("remote-control{}.log")
+                .to_str()
+                .unwrap(),
             ROLLING_FILE_COUNT,
         )
         .unwrap();
@@ -60,5 +63,5 @@ fn default_log_dir() -> PathBuf {
 
 #[cfg(windows)]
 fn default_log_path() -> PathBuf {
-    default_log_dir().join("logfile.log")
+    default_log_dir().join("remote-control.log")
 }
