@@ -1,11 +1,12 @@
 use crate::config::Config;
 
-mod app;
 pub mod config;
+mod control;
 mod log;
-mod server;
+mod shutdown;
 
 pub fn run(config: Config) -> std::io::Result<actix_web::dev::Server> {
     log::init();
-    server::run(config.socket_addrs)
+    control::run_server(&config.socket_addrs)?;
+    shutdown::run_server(&config.socket_addrs)
 }
