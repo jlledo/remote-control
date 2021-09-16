@@ -1,15 +1,11 @@
 use std::net::{SocketAddr, UdpSocket};
+use std::thread::JoinHandle;
 
 use log::{trace, warn};
 
 use crate::control::parser;
 
-pub fn run(socket_addrs: &[SocketAddr]) -> std::io::Result<()> {
-    let socket_addrs: Vec<SocketAddr> = socket_addrs
-        .iter()
-        .map(|addr| SocketAddr::new(addr.ip(), 38913))
-        .collect();
-
+pub fn run(socket_addrs: Vec<SocketAddr>) -> JoinHandle<()> {
     std::thread::spawn(move || {
         let socket = UdpSocket::bind(&*socket_addrs).unwrap();
         let mut buffer = [0; 1024];
@@ -25,13 +21,11 @@ pub fn run(socket_addrs: &[SocketAddr]) -> std::io::Result<()> {
                     let error = format!("Error while processing command: {}", e);
                     warn!("{:?}", error);
                     socket.send_to(error.as_bytes(), source).unwrap();
-                    return;
+                    continue;
                 }
             };
             trace!("{:?}", command);
             command.execute();
         }
-    });
-
-    Ok(())
+    })
 }

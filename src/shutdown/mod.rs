@@ -13,8 +13,8 @@ pub async fn shutdown() -> impl Responder {
     }
 }
 
-pub fn run_server(socket_addrs: &[SocketAddr]) -> std::io::Result<actix_web::dev::Server> {
+pub fn run_server(socket_addrs: Vec<SocketAddr>) -> std::io::Result<actix_web::dev::Server> {
     HttpServer::new(|| App::new().wrap(Logger::default()).service(shutdown))
-        .bind(socket_addrs)
+        .bind(&*socket_addrs)
         .map(|server| server.run())
 }
