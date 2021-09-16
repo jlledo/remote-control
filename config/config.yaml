@@ -1,3 +1,7 @@
-socket-addresses:
-  - host:
-    port: 8080
+server:
+  control:
+    - host: ""
+      port: 8081
+  shutdown:
+    - host: ""
+      port: 8080
