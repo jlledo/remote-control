@@ -8,8 +8,8 @@ use nom::combinator::{map_res, opt, recognize};
 use nom::sequence::*;
 use nom::IResult;
 
-use crate::app::models::Command;
-use crate::app::models::Vector2;
+use crate::control::models::Command;
+use crate::control::models::Vector2;
 
 pub fn parse_command(input: &str) -> anyhow::Result<Command> {
     match alt((move_mouse, left_click, right_click, scroll))(input) {

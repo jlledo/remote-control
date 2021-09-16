@@ -1,3 +1,7 @@
-[[socket-addresses]]
+[[server.control]]
+host = ""
+port = 8081
+
+[[server.shutdown]]
 host = ""
 port = 8080

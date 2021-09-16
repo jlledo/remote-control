@@ -10,8 +10,6 @@ use log4rs::config::{Appender, Root};
 use log4rs::Config;
 
 pub fn init() {
-    std::env::set_var("RUST_LOG", "actix_server=trace,actix_web=trace");
-
     if let Err(_) = log4rs::init_file("config/log4rs.yaml", Default::default()) {
         log4rs::init_config(default_config()).unwrap();
     }

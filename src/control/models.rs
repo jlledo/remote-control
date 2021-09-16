@@ -1,17 +1,17 @@
 use enigo::{Enigo, MouseButton, MouseControllable};
 
 #[derive(Debug, Eq, PartialEq)]
-pub struct Vector2 {
-    pub x: i32,
-    pub y: i32,
-}
-
-#[derive(Debug, Eq, PartialEq)]
 pub enum Command {
     Move(Vector2),
     LeftClick,
     RightClick,
     Scroll(Vector2),
+}
+
+#[derive(Debug, Eq, PartialEq)]
+pub struct Vector2 {
+    pub x: i32,
+    pub y: i32,
 }
 
 impl Command {
