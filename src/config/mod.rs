@@ -21,6 +21,12 @@ impl Config {
     }
 }
 
+impl Default for Config {
+    fn default() -> Self {
+        Config::new()
+    }
+}
+
 #[derive(Debug)]
 pub struct ServerConfig {
     pub socket_addrs: Vec<SocketAddr>,

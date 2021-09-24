@@ -10,7 +10,7 @@ use log4rs::config::{Appender, Root};
 use log4rs::Config;
 
 pub fn init() {
-    if let Err(_) = log4rs::init_file("config/log4rs.yaml", Default::default()) {
+    if log4rs::init_file("config/log4rs.yaml", Default::default()).is_err() {
         log4rs::init_config(default_config()).unwrap();
     }
 }

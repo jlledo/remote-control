@@ -3,7 +3,6 @@ use std::net::SocketAddr;
 use actix_web::middleware::Logger;
 use actix_web::{get, HttpResponse, Responder};
 use actix_web::{App, HttpServer};
-use system_shutdown;
 
 #[get("/shutdown")]
 pub async fn shutdown() -> impl Responder {
