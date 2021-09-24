@@ -15,7 +15,7 @@ pub fn run(socket_addrs: Vec<SocketAddr>) -> JoinHandle<()> {
 
             let buffer = &mut buffer[..size];
             let text = std::str::from_utf8(buffer).unwrap();
-            let command = match parser::parse_command(&text) {
+            let command = match parser::parse_command(text) {
                 Ok(v) => v,
                 Err(e) => {
                     let error = format!("Error while processing command: {}", e);
